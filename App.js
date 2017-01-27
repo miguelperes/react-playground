@@ -1,22 +1,34 @@
   import React from 'react';
 class App extends React.Component {
     constructor() {
-    	super();
-    	this.state = { txt: "Hello, world!" };
+        super();
+        this.state = { txt: "Hello, world!" };
+        this.update = this.update.bind(this);
     }
 
     update(e) {
-    	this.setState( { txt: e.target.value } );
+        this.setState( { txt: e.target.value } );
     }
 
     render() {
         return (
-        	<div>
-        		<input type="text" onChange={ this.update.bind(this) } /> 
-        		<h1>{ this.state.txt }</h1>
-        	</div>
+            <div>
+            <Widget txt={this.state.txt} update={this.update}/>
+            <Widget txt={this.state.txt} update={this.update}/>
+            <Widget txt={this.state.txt} update={this.update}/>
+            </div>
         );
     }
+}
+
+// Stateless component that updates the state.txt of its parent component
+const Widget = (props) => {
+    return (
+        <div>
+            <input type="text" onChange={ props.update } /> 
+            <h1>{ props.txt }</h1>
+        </div>
+    );
 }
 
 export default App

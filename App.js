@@ -1,34 +1,58 @@
-  import React from 'react';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 class App extends React.Component {
-    constructor() {
-        super();
-        this.state = { txt: "Hello, world!" };
-        this.update = this.update.bind(this);
-    }
+  constructor() {
+    super();
+    this.state = { 
+      red   : 0,
+      green : 0,
+      blue  : 0
+    };
 
-    update(e) {
-        this.setState( { txt: e.target.value } );
-    }
+    this.update = this.update.bind(this);
+  }
 
-    render() {
-        return (
-            <div>
-            <Widget txt={this.state.txt} update={this.update}/>
-            <Widget txt={this.state.txt} update={this.update}/>
-            <Widget txt={this.state.txt} update={this.update}/>
-            </div>
-        );
-    }
+  componentDidMount() {
+    console.log("componentDidMount");
+    console.log(this.redInput);
+  }
+
+  update(e) {
+    this.setState( { 
+      red: ReactDOM.findDOMNode(this.redInput).value,
+      green: ReactDOM.findDOMNode(this.greenInput).value,
+      blue: ReactDOM.findDOMNode(this.blueInput).value
+    });
+
+ }
+
+ render() {
+  return (
+    <div>
+    {this.state.txt}
+    <hr />
+    <Slider ref={(rInput) => { this.redInput = rInput; }}    update={ this.update }/>
+    {this.state.red}
+    <Slider ref={(gInput) => { this.greenInput = gInput; }}  update={ this.update }/>
+    {this.state.green}
+    <Slider ref={(bInput) => { this.blueInput = bInput; }}   update={ this.update }/>
+    {this.state.blue}
+    </div>
+    );
+}
 }
 
-// Stateless component that updates the state.txt of its parent component
-const Widget = (props) => {
+class Slider extends React.Component {
+  render() {
     return (
-        <div>
-            <input type="text" onChange={ props.update } /> 
-            <h1>{ props.txt }</h1>
-        </div>
-    );
+      <input type="range"
+      min="0"
+      max="255"
+      value="128"
+      onChange={ this.props.update } />
+      );
+  }
 }
 
 export default App

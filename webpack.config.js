@@ -4,6 +4,7 @@ module.exports = {
         path: './',
         filename: 'index.js'
     },
+    devtool: 'eval',
     devServer: {
         inline: true,
         port: 3333

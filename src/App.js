@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
-import Modal from './components/Modal'
+import Modal from './components/Modal/Modal'
 
 class App extends Component {
   constructor(props) {
